@@ -9,7 +9,7 @@ public class Movement : MonoBehaviour
     private Animator anim;
     public new Transform camera;
     public float hor,ver;
-    public float speed=10f;
+    public float speed = 4f; 
 
     public float gravity = -9.8f;
     // Start is called before the first frame update

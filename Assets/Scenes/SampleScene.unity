@@ -144,11 +144,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: deebfa8fb62e05b4cb76b76ff88bff27, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1.76
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: deebfa8fb62e05b4cb76b76ff88bff27, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.176
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: deebfa8fb62e05b4cb76b76ff88bff27, type: 3}
       propertyPath: m_LocalPosition.z
@@ -488,7 +488,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54332d381269fc4459717e18107d3b4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rangoDeAlerta: 100
+  rangoDeAlerta: 10
   velocidad: 5
   jugador: {fileID: 2011937107}
   capaDelJugador:
@@ -566,7 +566,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 617185521}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.13769513, y: 1.66, z: -0.5231907}
+  m_LocalPosition: {x: 0.148, y: 1.994, z: -0.5231907}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -937,14 +937,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
-  m_LocalPosition: {x: 4.56, y: 7.19, z: -3.52}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.25, y: 1.74, z: -6.88}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 50, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1705855013
 GameObject:
   m_ObjectHideFlags: 0
@@ -1172,13 +1172,13 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2
+  m_Height: 1.768456
   m_Radius: 0.3
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.9, z: 0}
+  m_Center: {x: 0, y: 0.8526387, z: 0}
 --- !u!4 &2011937107 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: deebfa8fb62e05b4cb76b76ff88bff27, type: 3}
@@ -1195,6 +1195,6 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.3
-  m_Height: 2
+  m_Height: 1.7684556
   m_Direction: 1
-  m_Center: {x: 0, y: 0.9, z: 0}
+  m_Center: {x: 0, y: 0.85263866, z: 0}
