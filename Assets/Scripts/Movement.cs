@@ -4,19 +4,27 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    private new CapsuleCollider capsuleCollider;
+    //private new CapsuleCollider capsuleCollider;
     private CharacterController characterController;    
     private Animator anim;
     public new Transform camera;
     public float hor,ver;
     public float speed = 4f; 
-
     public float gravity = -9.8f;
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Destroy(collision.transform.gameObject);
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
         characterController = GetComponent<CharacterController>();
-        capsuleCollider = GetComponent<CapsuleCollider>();
+        //capsuleCollider = GetComponent<CapsuleCollider>();
         anim = GetComponent<Animator>();
     }
 
