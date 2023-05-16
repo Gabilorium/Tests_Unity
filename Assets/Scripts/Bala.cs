@@ -8,4 +8,5 @@ public class Bala : MonoBehaviour
     {
         Instantiate(bulletPrefab, transform.position, transform.rotation);
     }
+    
 }
