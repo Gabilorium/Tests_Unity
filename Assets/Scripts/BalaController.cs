@@ -5,18 +5,59 @@ using UnityEngine;
 public class BalaController : MonoBehaviour
 {
     public float velocidad = 20f;
-    public GameObject prefabBala;
+    private float nextFire = 0.5F;
+    public GameObject projectile;
+    public float fireDelta = 0.2F;
+    private GameObject newProjectile;
+    private float myTime = 0.0F;
 
     // Start is called before the first frame update
     void Start()
     {
         
     }
-
-    // Update is called once per frame
-   void Update()
+    private void OnCollisionEnter(Collision collision)
     {
-        if (Input.GetButtonDown("Fire1")) // Puedes ajustar el nombre del botón según tus necesidades
+        Destroy(gameObject);
+
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Destroy(gameObject);
+        }
+   
+    }
+    void Update()
+    {
+        myTime = myTime + Time.deltaTime;
+
+        if (Input.GetButton("Fire1") && myTime > nextFire)
+        {
+            nextFire = myTime + fireDelta;
+            newProjectile = Instantiate(projectile, transform.position, transform.rotation) as GameObject;
+            //projectile = Instantiate(projectile, transform.position, transform.rotation);
+            Rigidbody rb = newProjectile.GetComponent<Rigidbody>();
+            rb.velocity = transform.forward * velocidad;
+            // create code here that animates the newProjectile
+
+            nextFire = nextFire - myTime;
+            myTime = 0.0F;
+        }
+    }
+
+    /*void Disparar()
+    {
+        GameObject bala = Instantiate(projectile, transform.position, transform.rotation);
+        Rigidbody rb = bala.GetComponent<Rigidbody>();
+        rb.velocity = transform.forward * velocidad;
+    }*/
+    
+    /*
+    // Update is called once per frame
+    void Update()
+    {
+        //myTime = myTime + Time.deltaTime;
+
+        /*if (Input.GetButton("Fire1") && myTime > nextFire) // Puedes ajustar el nombre del botón según tus necesidades
         {
             Disparar();
         }
@@ -25,12 +66,5 @@ public class BalaController : MonoBehaviour
         {
             Disparar();
         }
-    }
-    void Disparar()
-    {
-        GameObject bala = Instantiate(prefabBala, transform.position, transform.rotation);
-        Rigidbody rb = bala.GetComponent<Rigidbody>();
-        rb.velocity = transform.forward * velocidad;
-    }
-
+    }*/
 }
