@@ -64,14 +64,8 @@ public class Movement : MonoBehaviour
 
 
         }
-            movement.y += gravity * Time.deltaTime;
-            characterController.Move(movement);
-            anim.SetFloat("Speed", movementSpeed); 
-
-        /*while (movement.y != 0)
-        {
-                        
- 
-        }*/
+        movement.y += gravity * Time.deltaTime;
+        characterController.Move(movement);
+        anim.SetFloat("Speed", movementSpeed); 
     }
 }
