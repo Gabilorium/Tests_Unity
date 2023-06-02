@@ -251,13 +251,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79bce7f7d21d8f04da97163fa9da1799, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _jugador: {fileID: 888077716}
+  _jugador: {fileID: 0}
   rangoDeAlerta: 0
   capaDelJugador:
     serializedVersion: 2
     m_Bits: 256
-  vida: 0
-  bala: {fileID: -587318123664616785, guid: fbbf5e5ec9b5a9942afec587f2a0d13e, type: 3}
+  life: 0
+  enemyDamage: 5
 --- !u!1 &233399015
 GameObject:
   m_ObjectHideFlags: 0
@@ -283,7 +283,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 233399015}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.26, z: 0.28}
+  m_LocalPosition: {x: 0, y: 1.26, z: 0.164}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -867,6 +867,33 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!65 &888077723
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 888077715}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 1.9, z: 0.5}
+  m_Center: {x: -0.005791903, y: 0.8636341, z: 0}
+--- !u!114 &888077724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 888077715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ead5279b1b40ce4192a090f2ac587d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  life: 0
+  contactDamage: 3
 --- !u!1 &1320920061
 GameObject:
   m_ObjectHideFlags: 0
@@ -1577,13 +1604,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79bce7f7d21d8f04da97163fa9da1799, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _jugador: {fileID: 888077716}
+  _jugador: {fileID: 888077724}
   rangoDeAlerta: 5
   capaDelJugador:
     serializedVersion: 2
     m_Bits: 256
-  vida: 0
-  bala: {fileID: -587318123664616785, guid: fbbf5e5ec9b5a9942afec587f2a0d13e, type: 3}
+  life: 0
+  enemyDamage: 5
 --- !u!54 &2030408063
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1598,7 +1625,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &2030408064
 BoxCollider:
