@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bala : MonoBehaviour
 {
-    public float daño = 1.0f;
+    public float bulletDamage = 1.0f;
     //private float timeDestroy = 2f;
 
     // Start is called before the first frame update
@@ -20,9 +20,8 @@ public class Bala : MonoBehaviour
             Enemy enemy = collision.gameObject.GetComponent<Enemy>();
 
             // Disminuir la salud del enemigo
-            enemy.TakeDamage();
-            Debug.Log(enemy.vida);
-
+            enemy.TakeDamage(bulletDamage);
+            Debug.Log("El enemigo tiene: " + enemy.life + " de vida");
             // Destruir la bala
         }
 

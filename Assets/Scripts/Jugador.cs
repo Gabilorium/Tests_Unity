@@ -4,53 +4,53 @@ using UnityEngine;
 
 public class Jugador : MonoBehaviour
 {
-    private CharacterController characterController;
-    private Animator anim;
-    public float speed = 4f;
-    public float rotationSpeed = 8f;
-    public float gravity = -9.8f;
-    private Vector3 movement;
+    private int maxLife = 20;
+    public float life; 
+    public float contactDamage = 3f;
+    private float damageCooldown = 2f;
+    private float damageTimer = 0.0f;
 
     void Start()
     {
-        characterController = GetComponent<CharacterController>();
-        anim = GetComponent<Animator>();
+        //anim = GetComponent<Animator>();
+        life = maxLife;
     }
 
     void Update()
     {
-        float hor = Input.GetAxisRaw("Horizontal");
-        float ver = Input.GetAxisRaw("Vertical");
-
-        // Movimiento del personaje con las teclas de flecha
-        movement = new Vector3(hor, 0f, ver);
-        movement.Normalize();
-
-        // Rotación del personaje hacia la dirección del mouse
-        Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Plane groundPlane = new Plane(Vector3.up, transform.position);
-        float rayDistance;
-
-        if (groundPlane.Raycast(mouseRay, out rayDistance))
+        if (damageTimer >= 0)
         {
-            Vector3 point = mouseRay.GetPoint(rayDistance);
-            Vector3 lookDirection = point - transform.position;
-
-            if (lookDirection != Vector3.zero)
-            {
-                Quaternion rotation = Quaternion.LookRotation(lookDirection);
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
-            }
+            damageTimer -= Time.deltaTime;
         }
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
 
-        // Gravedad
-        movement.y += gravity * Time.deltaTime;
+            // Disminuir la salud del enemigo
+            enemy.TakeDamage(contactDamage);
+            Debug.Log("El enemigo tiene: " + enemy.life + " de vida");
+            TakeDamage(enemy.enemyDamage);
+            Debug.Log("El jugador tiene: " + life + " de vida");
+        }
+    }
 
-        // Mover al personaje
-        characterController.Move(movement * speed * Time.deltaTime);
+    public void TakeDamage(float damage)
+    {
+        if (damageTimer <= 0)
+        {
+            life -= damage;
 
-        // Animaciones
-        /*float movementSpeed = movement.magnitude;
-        anim.SetFloat("Speed", movementSpeed);*/
+            if (life <= 0)
+            {
+                // Eliminar el enemigo si la vida llega a 0
+                Destroy(gameObject);
+            }
+
+            damageTimer = damageCooldown;
+        }
+        
     }
 }

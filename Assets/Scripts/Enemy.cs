@@ -6,19 +6,18 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     NavMeshAgent agente;
-    public Movement _jugador;
+    public Jugador _jugador;
     public float rangoDeAlerta;
     public LayerMask capaDelJugador;
-    private int maxVida = 5;
-    public float vida;
-    public Bala bala;
+    private int maxLife = 5;
+    public float life;
+    public float enemyDamage = 5f;
     // Start is called before the first frame update
     void Awake()
     {
         agente = GetComponent<NavMeshAgent>();
-        _jugador= FindObjectOfType<Movement>();
-        //bala = GetComponent<Bala>();
-        vida = maxVida;
+        _jugador= FindObjectOfType<Jugador>();
+        life = maxLife;
     }
 
     // Update is called once per frame
@@ -31,14 +30,14 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void TakeDamage()
+    public void TakeDamage(float damage)
     {
-        vida = vida - bala.daño;
+            life -= damage;
 
-        if (vida <= 0)
-        {
-            // Eliminar el enemigo si la vida llega a 0
-            Destroy(gameObject);
-        }
+            if (life <= 0)
+            {
+                // Eliminar el enemigo si la vida llega a 0
+                Destroy(gameObject);
+            }
     }
 }
