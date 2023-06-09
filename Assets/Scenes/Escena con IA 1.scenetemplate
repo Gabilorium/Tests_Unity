@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13966, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: Escena con IA
+  m_Name: Escena con IA 1
   m_EditorClassIdentifier: 
   templateScene: {fileID: 102900000, guid: 38bad56ca27e2eb41827e5df1a0f2e5c, type: 3}
   templateName: 

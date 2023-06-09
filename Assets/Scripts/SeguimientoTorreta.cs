@@ -4,23 +4,53 @@ using UnityEngine;
 
 public class SeguimientoTorreta : MonoBehaviour
 {
-    public Transform _target;
+    public Transform target;
     public float rotationSpeed = 100f;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float fireRate = 2f;
+    public GameObject bulletPrefab;
+    public Transform bulletSpawnPoint;
 
-    // Update is called once per frame
+    private float nextFireTime;
+    public float velocidad = 20f;
+    private float timeDestroy = 2f;
+
     void Update()
     {
-       Vector3 targetOrientation = _target.position - transform.position;
-        Debug.DrawRay(transform.position, targetOrientation, Color.green);
-        
-        transform.rotation = Quaternion.LookRotation(targetOrientation );
-        Quaternion targetOrientationQuaternion = Quaternion.LookRotation(targetOrientation);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetOrientationQuaternion, rotationSpeed * Time.deltaTime);
-}
-}
+        if (target != null)
+        {
+            Vector3 targetDirection = target.position - transform.position;
+            Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
+            if (Time.time >= nextFireTime && IsInFieldOfView())
+            {
+                Fire();
+                nextFireTime = Time.time + 1f / fireRate;
+            }
+        }
+    }
+
+    void Fire()
+    {
+        GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+        Rigidbody bulletRigidbody = bullet.GetComponent<Rigidbody>();
+        if (bulletRigidbody != null)
+        {
+            bulletRigidbody.velocity = bullet.transform.forward * velocidad;
+        }
+        Destroy(bullet, timeDestroy);
+    }
+
+    bool IsInFieldOfView()
+    {
+        Vector3 directionToTarget = target.position - transform.position;
+        float angle = Vector3.Angle(transform.forward, directionToTarget);
+
+        if (angle < 90f)
+        {
+            return true;
+        }
+
+        return false;
+    }
+}
