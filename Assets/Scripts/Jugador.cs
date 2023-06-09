@@ -9,7 +9,7 @@ public class Jugador : MonoBehaviour
     public float contactDamage = 3f;
     private float damageCooldown = 2f;
     private float damageTimer = 0.0f;
-
+    public bool DashActivo = false;
     void Start()
     {
         //anim = GetComponent<Animator>();
@@ -35,6 +35,7 @@ public class Jugador : MonoBehaviour
             TakeDamage(enemy.enemyDamage);
             Debug.Log("El jugador tiene: " + life + " de vida");
         }
+        
     }
 
     public void TakeDamage(float damage)

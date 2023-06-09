@@ -7,7 +7,7 @@ public class Movement : MonoBehaviour
     private CharacterController characterController;
     private Animator anim;
     public float speed = 4f;
-    public float rotationSpeed = 8f;
+    public float rotationSpeed = 500f;
     public float gravity = -9.8f;
     private Vector3 movement;
 

@@ -11,7 +11,7 @@ public class BalaController : MonoBehaviour
     public GameObject newProjectile;
     private float myTime = 0.0F;
     private float timeDestroy = 2f;
-
+   
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +27,7 @@ public class BalaController : MonoBehaviour
             nextFire = myTime + fireDelta;
             newProjectile = Instantiate(projectile, transform.position, transform.rotation) as GameObject;
             Rigidbody rb = newProjectile.GetComponent<Rigidbody>();
-            rb.velocity = transform.forward * velocidad;
+            rb.velocity = (transform.forward * velocidad ) ;
 
             // Destruir la bala después de 2 segundos
             Destroy(newProjectile, timeDestroy);
