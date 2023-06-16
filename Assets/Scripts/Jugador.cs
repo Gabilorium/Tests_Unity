@@ -7,7 +7,7 @@ public class Jugador : MonoBehaviour
     private int maxLife = 20;
     public float life { get; private set; }
     public float contactDamage = 3f;
-    private float damageCooldown = 2f;
+    private float damageCooldown = 0.5f;
     private float damageTimer = 0.0f;
     private Enemy enemy;
     void Start()
