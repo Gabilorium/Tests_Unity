@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour
+public class SummonerEnemy : MonoBehaviour
 {
     NavMeshAgent agente;
     public Jugador _jugador;
@@ -12,8 +12,8 @@ public class Enemy : MonoBehaviour
     private int maxLife = 5;
     public float life;
     public float contactDamage = 5f;
-    private float damageCooldown = 0f;
-    private float damageTimer = 0.0f;
+    private float spawnCooldown = 2f;
+    private float SpawnTimer = 0.0f;
     // Start is called before the first frame update
     void Awake()
     {
@@ -25,16 +25,16 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("El Enemigo tiene: " + life + " de vida");
         bool estarAlerta = Physics.CheckSphere(transform.position, rangoDeAlerta, capaDelJugador);
         if (estarAlerta) 
         {
             agente.SetDestination(_jugador.transform.position);
         }
-        if (damageTimer > 0)
+
+        /*if (damageTimer > 0)
         {
             damageTimer -= Time.deltaTime;
-        }
+        }*/
     }
 
     private void OnCollisionEnter(Collision collision)

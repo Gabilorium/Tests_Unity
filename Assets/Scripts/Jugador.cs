@@ -5,53 +5,48 @@ using UnityEngine;
 public class Jugador : MonoBehaviour
 {
     private int maxLife = 20;
-    public float life; 
+    public float life { get; private set; }
     public float contactDamage = 3f;
     private float damageCooldown = 2f;
     private float damageTimer = 0.0f;
-    public bool DashActivo = false;
+    private Enemy enemy;
     void Start()
     {
-        //anim = GetComponent<Animator>();
         life = maxLife;
+        enemy = GetComponent<Enemy>();
     }
-
+    
     void Update()
     {
-        if (damageTimer >= 0)
+        Debug.Log("Cooldown: " + damageTimer);
+        Debug.Log("El jugador tiene: " + life + " de vida");
+        if (damageTimer > 0)
         {
             damageTimer -= Time.deltaTime;
         }
     }
+
+    /*void FixedUpdate()
+    {
+
+    }*/
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-
+            
+            enemy = collision.gameObject.GetComponent<Enemy>();
             // Disminuir la salud del enemigo
-            enemy.TakeDamage(contactDamage);
-            Debug.Log("El enemigo tiene: " + enemy.life + " de vida");
-            TakeDamage(enemy.enemyDamage);
-            Debug.Log("El jugador tiene: " + life + " de vida");
+            Function.TakeDamage(enemy, damage, damageCooldown, ref timer, ref life);
+            TakeDamage(player.contactDamage, ref player.damageTimer, ref player.life);
+            
         }
         
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, ref float timer, ref float life)
     {
-        if (damageTimer <= 0)
-        {
-            life -= damage;
-
-            if (life <= 0)
-            {
-                // Eliminar el enemigo si la vida llega a 0
-                Destroy(gameObject);
-            }
-
-            damageTimer = damageCooldown;
-        }
-        
+        Function.TakeDamage(gameObject, damage, damageCooldown, ref timer, ref life);
     }
 }
