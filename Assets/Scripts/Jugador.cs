@@ -1,52 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Jugador : MonoBehaviour
 {
     private int maxLife = 20;
-    public float life { get; private set; }
+    private float life;
     public float contactDamage = 3f;
-    private float damageCooldown = 0.5f;
-    private float damageTimer = 0.0f;
-    private Enemy enemy;
-    void Start()
+    private float damageCooldown = 2f;
+
+    void start()
     {
         life = maxLife;
-        enemy = GetComponent<Enemy>();
     }
-    
+
     void Update()
     {
-        Debug.Log("Cooldown: " + damageTimer);
-        Debug.Log("El jugador tiene: " + life + " de vida");
-        if (damageTimer > 0)
+        if (damageData.timer > 0)
         {
-            damageTimer -= Time.deltaTime;
+            damageData.timer -= Time.deltaTime;
         }
     }
-
-    /*void FixedUpdate()
-    {
-
-    }*/
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            
-            enemy = collision.gameObject.GetComponent<Enemy>();
-            // Disminuir la salud del enemigo
-            Function.TakeDamage(enemy, damage, damageCooldown, ref timer, ref life);
-            TakeDamage(player.contactDamage, ref player.damageTimer, ref player.life);
-            
+            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+            Functions.TakeDamage(damageData, enemy.contactDamage, damageCooldown);
+            enemy.Functions.TakeDamage(contactDamage, damageCooldown);
         }
-        
-    }
-
-    public void TakeDamage(float damage, ref float timer, ref float life)
-    {
-        Function.TakeDamage(gameObject, damage, damageCooldown, ref timer, ref life);
     }
 }

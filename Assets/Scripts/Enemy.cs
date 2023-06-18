@@ -5,35 +5,20 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    NavMeshAgent agente;
-    public Jugador _jugador;
-    public float rangoDeAlerta;
-    public LayerMask capaDelJugador;
-    private int maxLife = 5;
-    public float life;
     public float contactDamage = 5f;
-    private float damageCooldown = 0f;
-    private float damageTimer = 0.0f;
-    // Start is called before the first frame update
+    private float damageCooldown = 2f;
+    private Functions.DamageData damageData;
+
     void Awake()
     {
-        agente = GetComponent<NavMeshAgent>();
-        _jugador= FindObjectOfType<Jugador>();
-        life = maxLife;
+        damageData = new Functions.DamageData();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        Debug.Log("El Enemigo tiene: " + life + " de vida");
-        bool estarAlerta = Physics.CheckSphere(transform.position, rangoDeAlerta, capaDelJugador);
-        if (estarAlerta) 
+        if (damageData.timer > 0)
         {
-            agente.SetDestination(_jugador.transform.position);
-        }
-        if (damageTimer > 0)
-        {
-            damageTimer -= Time.deltaTime;
+            damageData.timer -= Time.deltaTime;
         }
     }
 
@@ -41,32 +26,10 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            
-            Jugador player = collision.gameObject.GetComponent<Jugador>();
-            // Disminuir la salud del enemigo
-            player.TakeDamage(contactDamage);
-            Debug.Log("El enemigo tiene: " + player.life + " de vida");
-            TakeDamage(player.contactDamage);
-            Debug.Log("El jugador tiene: " + life + " de vida");
+            Jugador jugador = collision.gameObject.GetComponent<Jugador>();
+            Functions.TakeDamage(damageData, jugador.contactDamage, damageCooldown);
+            jugador.Functions.TakeDamage(contactDamage, damageCooldown);
         }
-        
     }
 
-    public void TakeDamage(float damage)
-    {
-        if (damageTimer <= 0)
-        {
-            life -= damage;
-
-            if (life <= 0)
-            {
-                // Eliminar el enemigo si la vida llega a 0
-                Destroy(gameObject);
-            }
-
-            damageTimer = damageCooldown;
-        }
-        
-    }
 }
-

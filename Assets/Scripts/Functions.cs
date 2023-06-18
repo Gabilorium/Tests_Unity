@@ -1,15 +1,14 @@
-public class Functions
+public static class Functions
 {
-
-    public static void TakeDamage(GameObject target, float damage, float cooldown, ref float timer, ref float life)
+    public static void TakeDamage(float life, float timer, float damage, float cooldown)
     {
         if (timer <= 0)
         {
             life -= damage;
 
-            if (life <= 0)
+            if (data.life <= 0)
             {
-                Destroy(target);
+                Destroy(gameObject);
             }
 
             timer = cooldown;
