@@ -5,31 +5,61 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    public float contactDamage = 5f;
-    private float damageCooldown = 2f;
-    private Functions.DamageData damageData;
+    NavMeshAgent agente;
+    private float maxLife = 5f;
+    public float life { get; private set; }
+    public float contactDamage = 2f;
+    private float damageCooldown = 0.5f;
+    private float damageTimer = 0.0f;
+    private float rangoDeAlerta = 10f;
+    private LayerMask capaDelJugador;
+    private Jugador player;
 
     void Awake()
     {
-        damageData = new Functions.DamageData();
+        agente = GetComponent<NavMeshAgent>();
+        life = maxLife;
+        player = GetComponent<Jugador>();
+
     }
 
     void Update()
     {
-        if (damageData.timer > 0)
+        bool estarAlerta = Physics.CheckSphere(transform.position, rangoDeAlerta, capaDelJugador);
+        if (estarAlerta) 
         {
-            damageData.timer -= Time.deltaTime;
+            agente.SetDestination(player.transform.position);
+        }
+        if (damageCooldown > 0)
+        {
+            damageCooldown -= Time.deltaTime;
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Jugador"))
         {
             Jugador jugador = collision.gameObject.GetComponent<Jugador>();
-            Functions.TakeDamage(damageData, jugador.contactDamage, damageCooldown);
-            jugador.Functions.TakeDamage(contactDamage, damageCooldown);
+            TakeDamage(jugador.contactDamage);
+            jugador.TakeDamage(contactDamage);
         }
     }
 
+    public void TakeDamage(float damage)
+    {
+        if (damageTimer <= 0)
+        {
+            life -= damage;
+
+            if (life <= 0)
+            {
+                // Eliminar el enemigo si la vida llega a 0
+                Destroy(gameObject);
+            }
+
+            damageTimer = damageCooldown;
+        }
+        
+    }
 }

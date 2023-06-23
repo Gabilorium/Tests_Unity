@@ -14,6 +14,8 @@ public class SummonerEnemy : MonoBehaviour
     public float contactDamage = 5f;
     private float spawnCooldown = 2f;
     private float SpawnTimer = 0.0f;
+    private float damageCooldown = 3f;
+    private float damageTimer = 0.0f;
     // Start is called before the first frame update
     void Awake()
     {
