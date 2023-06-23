@@ -15,7 +15,6 @@ public class Jugador : MonoBehaviour
     void Awake()
     {
         life = maxLife;
-        enemy = GetComponent<Enemy>();
     }
 
     void Update()

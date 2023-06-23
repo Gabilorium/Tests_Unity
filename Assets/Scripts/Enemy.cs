@@ -12,14 +12,13 @@ public class Enemy : MonoBehaviour
     private float damageCooldown = 0.5f;
     private float damageTimer = 0.0f;
     private float rangoDeAlerta = 10f;
-    private LayerMask capaDelJugador;
+    public LayerMask capaDelJugador;
     private Jugador player;
 
     void Awake()
     {
         agente = GetComponent<NavMeshAgent>();
         life = maxLife;
-        player = GetComponent<Jugador>();
 
     }
 
